@@ -1,0 +1,57 @@
+demo:
+  stock-service-hostname: 10.17.211.52
+  stock-service-port: 8380
+  order-service-hostname: 10.17.211.52
+  order-service-port: 8280
+  assessment-service-hostname: 10.17.211.52
+  assessment-service-port: 9102
+
+server:
+  port: 8080 #0 #${random.int(10000,51000)}
+
+spring:
+  profiles.active: local
+  application:
+    name: DepositOffer
+
+  datasource:
+#    url: jdbc:h2:mem:testdb
+#    #url: jdbc:h2:tcp://localhost/~/testdb`
+#    username: sa
+#    password:
+#    driverClassName: org.h2.Driver
+    url: jdbc:postgresql://localhost:5432/hosuk
+    #url: jdbc:h2:tcp://localhost/~/testdb`
+    username: hosuk
+    password: hosuk
+    driverClassName: org.postgresql.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+#    database-platform: org.hibernate.dialect.H2Dialect
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        format_sql: true
+        #implicit_naming_strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl
+        implicit_naming_strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyComponentPathImpl
+        physical_naming_strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+#logging.level.org.hibernate.type.descriptor.sql: trace
+logging.level:
+#  org.springframework: debug
+  org.hibernate.type.descriptor.sql: debug
+
+spring.kafka:
+    consumer:
+      bootstrap-servers: localhost:9092
+#      group-id: group-id-oing
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer

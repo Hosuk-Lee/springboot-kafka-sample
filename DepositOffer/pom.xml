@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <artifactId>kafka-sample</artifactId>
+    <groupId>hs.springboot.kafka.sample</groupId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+
+  <groupId>hs.springboot.kafka.sample</groupId>
+  <artifactId>DepositOffer</artifactId>
+  <version>1.0-SNAPSHOT</version>
+
+  <properties>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.kafka</groupId>
+      <artifactId>kafka-streams</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.kafka</groupId>
+      <artifactId>spring-kafka</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.kafka</groupId>
+      <artifactId>spring-kafka-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>com.devskiller.jpa2ddl</groupId>
+        <artifactId>jpa2ddl-maven-plugin</artifactId>
+        <version>0.9.12</version>
+        <extensions>false</extensions>
+        <!-- required to determine whether to run automatically ot not  -->
+        <configuration>
+          <outputPath>${basedir}/src/main/resources/database.sql</outputPath>
+          <packages>
+            <package>hs.saga</package>
+          </packages>
+          <jpaProperties>
+            <property>
+              <name>hibernate.dialect</name>
+              <value>org.hibernate.dialect.DB2Dialect</value>
+            </property>
+            <property>
+              <name>hibernate.implicit_naming_strategy</name>
+              <value>org.hibernate.boot.model.naming.ImplicitNamingStrategyComponentPathImpl</value>
+            </property>
+            <property>
+              <name>hibernate.physical_naming_strategy</name>
+              <value>org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl</value>
+            </property>
+            <property>
+              <name>hibernate.default_schema</name>
+              <value>DB_SCHEMA</value>
+            </property>
+          </jpaProperties>
+          <formatOutput>true</formatOutput>
+          <delimiter>;</delimiter>
+          <action>CREATE</action>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
