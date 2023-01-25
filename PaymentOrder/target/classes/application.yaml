@@ -1,0 +1,29 @@
+server:
+  port: 8080 #0 #${random.int(10000,51000)}
+
+spring:
+  profiles.active: local
+  application:
+    name: DepositOffer
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/hosuk
+    username: hosuk
+    password: hosuk
+    driverClassName: org.postgresql.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        format_sql: true
+        implicit_naming_strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyComponentPathImpl
+        physical_naming_strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+#logging.level.org.hibernate.type.descriptor.sql: trace
+logging.level:
+#  org.springframework: debug
+  org.hibernate.type.descriptor.sql: debug
+
